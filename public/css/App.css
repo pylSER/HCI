@@ -1,0 +1,68 @@
+@import url("components/login.css");
+@import url("components/button.css");
+@import url("components/form.css");
+@import url("components/mainheader.css");
+@import url("components/siderbar.css");
+@import url("components/dropdown.css");
+@import url("components/maincontent.css");
+@import url("components/tab.css");
+@import url("components/box.css");
+@import url("components/post.css");
+
+* {
+    font-family: Microsoft YaHei;
+}
+html,
+body {
+    min-height: 100%;
+}
+.layout-boxed html,
+.layout-boxed body {
+    height: 100%;
+}
+body {
+    /*反锯齿*/
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.content {
+    min-height: 250px;
+    padding: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h0,
+.h01,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: Microsoft YaHei;
+}
+
+a {
+    color: #3c8dbc;
+}
+a:hover,
+a:active,
+a:focus {
+    outline: none;
+    /*去掉超链接时的下划线*/
+    text-decoration: none;
+    color: #72afd2;
+}

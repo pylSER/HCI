@@ -1,0 +1,161 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        getSimpleInfo();
+        initMessage();
+    });
+    function getSimpleInfo() {
+        $.getJSON('/user/show',function(data){
+            $('#username').text(data.username);
+            $('#username1').text(data.username);
+            var path = '../'+data.avatar;
+            $('#avatar').attr('src',path);
+            $('#avatar1').attr('src',path);
+        });
+    }
+
+    function initMessage() {
+        $.getJSON('/showMessage',function(data){
+            var ul = document.getElementById('message');
+            var count = eval(data).length;
+            if(count > 0) {
+                $.each(data,function (entryindex,entry) {
+                    var id = entry['id'];
+                    var createtime = entry['createtime'];
+                    var content = entry['content'];
+                    var single = '<li><form method="post" action="/readMessage"><input type="hidden" name="messageid" value="'+id+'"/>';
+                    single += '  '+content+'<button type="submit" class="pull-right btn btn-info">已读</button></form></li>';
+                    ul.innerHTML += single;
+                })
+            } else {
+                ul.innerHTML += '<li>您暂时没有收到新消息</li>';
+            }
+        });
+    }
+
+</script>
+<header class="main-header">
+    <!--logo-->
+    <a href="/" class="logo">
+        <span class="logo-mini"><b>RB</b></span>
+        <span class="logo-lg"><b>Running Bar</b></span>
+    </a>
+
+    <!--上面的导航栏-->
+    <nav class="navbar navbar-static-top">
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"></a>
+
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!--收到的回复等(信封)-->
+                <li class="dropdown messages-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="label label-danger">&nbsp;</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <ul id="message" class="menu"></ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--用户头像信息-->
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img name="avatar" id="avatar" class="user-image" alt="User Image">
+                        <span name="username" id="username" class="hidden-xs"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="user-header">
+                            <img name="avatar1" id="avatar1" class="img-circle" alt="User Image">
+                            <p name="username1" id="username1"></p>
+                        </li>
+                        <!-- 具体信息 -->
+                        <li class="user-body">
+                            <div class="row">
+                                <div class="col-xs-6 text-center">
+                                    <a href="/friend">我的关注</a>
+                                </div>
+                                <div class="col-xs-6 text-center">
+                                    <a href="/friend">我的粉丝</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="/userinfo" class="btn btn-default btn-flat">个人信息</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="/logout" class="btn btn-default btn-flat">登出</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!--左边的导航栏-->
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <!--搜索部分-->
+        <form action="/search" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" id="inputsearch" name="inputsearch" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                        <button type="submit" id="search-btn" class="btn btn-flat">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+            </div>
+        </form>
+
+        <!--下面不同的tab-->
+        <ul class="sidebar-menu">
+            <li class="header"></li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="glyphicon glyphicon-file"></i>
+                    <span>个人运动数据</span>
+                    <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/homepage"><i class="fa fa-circle-o"></i> 历史数据展示</a></li>
+                    <li><a href="/analyse"><i class="fa fa-circle-o"></i> 统计分析</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="glyphicon glyphicon-th"></i>
+                    <span>活动管理</span>
+                    <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/getActivityList"><i class="fa fa-circle-o"></i> 最新活动</a></li>
+                    <li><a href="/getMyActivities"><i class="fa fa-circle-o"></i> 我的活动</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="glyphicon glyphicon-list"></i>
+                    <span>动态管理</span>
+                    <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/myDynamics"><i class="fa fa-circle-o"></i> 我的动态</a></li>
+                    <li><a href="/friendDynamics"><i class="fa fa-circle-o"></i> 好友动态</a></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+</aside>
